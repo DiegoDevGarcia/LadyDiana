@@ -10,33 +10,65 @@ public class Flow : MonoBehaviour
     public Animator anim;
     public Rigidbody2D rig;
 
+    public bool recovering;     // está se recuperando de um ataque
+    public float recoveryTime;     //coldown de recuperação
+    public float recoveryCounter;     //calculo do tempo de recuperação
+    
     private bool facingRigth = true;
     
     [Header("Atributos")]
 
     public float health;
-    
+
+    public Transform healthBar; // Barra verde
+    public GameObject healthBarObject; // Objeto pai das barras
+
+    private Vector3 healthBarScale;  // Tamanho da barra
+    private float healthBarPercent;  // percentual de vida pára o calculo do tamanho da barra
     
     
     void Start()
     {
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody2D>();
+
+        healthBarScale = healthBar.localScale;
+        healthBarPercent = healthBarScale.x / health;
+        healthBarObject.SetActive(false);
     }
 
-    
+    void UpdateHealthBar()
+    {
+        healthBarScale.x = healthBarPercent * health;
+        healthBar.localScale = healthBarScale;
+    }
 
     void Update()
     {
+                
+        EnemyFlow();
+        Attack();
+        RecoveryTime();
         
-        
-            EnemyFlow();
-            Attack();
-        
-        
+
     }
 
+    public void RecoveryTime()
+    {
+        if (recovering) //Cooldown de recuperação
+        {
+            HealBarAtctive();
 
+            recoveryCounter += Time.deltaTime;
+            if (recoveryCounter >= recoveryTime)
+            {
+                recoveryCounter = 0;
+                recovering = false;
+                HealBarDesatctive();
+            }
+        }
+
+    }
     public void EnemyFlow()
     {
 
@@ -77,6 +109,9 @@ public class Flow : MonoBehaviour
         Vector3 scale = this.transform.localScale;
         scale.x *= -1;
         this.transform.localScale = scale;
+
+        //Rotacionar barra de vida 
+        healthBarObject.transform.localScale = new Vector3(healthBarObject.transform.localScale.x * -1, healthBarObject.transform.localScale.y, healthBarObject.transform.localScale.y);
     }
 
     public void Attack()
@@ -88,15 +123,24 @@ public class Flow : MonoBehaviour
         }
     }
 
-    public void Onhit(int damage)
+    public void Onhit(int damage)        
     {
+        recovering = true;
+
+       
+
         anim.SetTrigger("hit");
 
         health -= damage;
 
+        UpdateHealthBar();
+
         if (health <= 0)
         {
+            healthBarObject.SetActive(false);
+            
             EnemyDead();
+                        
         }
 
     }
@@ -117,5 +161,15 @@ public class Flow : MonoBehaviour
         Destroy(GetComponent<BoxCollider2D>());
         Destroy(GetComponent<Flow>());
         Destroy(gameObject, 120f);
+    }
+
+    public void HealBarAtctive()
+    {
+        healthBarObject.SetActive(true);
+    }
+
+    public void HealBarDesatctive()
+    {
+        healthBarObject.SetActive(false);
     }
 }

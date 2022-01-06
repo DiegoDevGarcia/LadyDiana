@@ -74262,6 +74262,10 @@ PrefabInstance:
       propertyPath: playerTarget
       value: 
       objectReference: {fileID: 2051432582}
+    - target: {fileID: 7486481633878741049, guid: 69b41786c73ef8e47a675741688d36be, type: 3}
+      propertyPath: recoveryTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7486481633878741050, guid: 69b41786c73ef8e47a675741688d36be, type: 3}
       propertyPath: m_RootOrder
       value: 10
