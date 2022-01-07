@@ -5890,6 +5890,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319184983}
   m_CullTransparentMesh: 0
+--- !u!1 &359295080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7486481633878741046, guid: 69b41786c73ef8e47a675741688d36be, type: 3}
+  m_PrefabInstance: {fileID: 7486481634807847297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &359295087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359295080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080ff72a9117db44cac4dc7b28a81554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 2249429955905041639, guid: 6e4c9d179a755b44db2cbbdc0d518a83, type: 3}
+  itemDropRate: 100
+  itemMinDrop: 1
+  itemMaxDrop: 3
 --- !u!1 &368303539
 GameObject:
   m_ObjectHideFlags: 0
@@ -74180,6 +74201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 6256779297035719193, guid: 5fbcd3f17b88f584fb4ad656959078bd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fbcd3f17b88f584fb4ad656959078bd, type: 3}
 --- !u!1001 &6775124041689619095
@@ -74262,10 +74287,6 @@ PrefabInstance:
       propertyPath: playerTarget
       value: 
       objectReference: {fileID: 2051432582}
-    - target: {fileID: 7486481633878741049, guid: 69b41786c73ef8e47a675741688d36be, type: 3}
-      propertyPath: recoveryTime
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 7486481633878741050, guid: 69b41786c73ef8e47a675741688d36be, type: 3}
       propertyPath: m_RootOrder
       value: 10

@@ -10,6 +10,9 @@ public class Flow : MonoBehaviour
     public Animator anim;
     public Rigidbody2D rig;
 
+    //public GameObject drop;
+    private DropItens dropScript;
+
     public bool recovering;     // está se recuperando de um ataque
     public float recoveryTime;     //coldown de recuperação
     public float recoveryCounter;     //calculo do tempo de recuperação
@@ -35,6 +38,9 @@ public class Flow : MonoBehaviour
         healthBarScale = healthBar.localScale;
         healthBarPercent = healthBarScale.x / health;
         healthBarObject.SetActive(false);
+
+        dropScript = GetComponent<DropItens>();
+
     }
 
     void UpdateHealthBar()
@@ -138,7 +144,7 @@ public class Flow : MonoBehaviour
         if (health <= 0)
         {
             healthBarObject.SetActive(false);
-            
+            //DropItem();
             EnemyDead();
                         
         }
@@ -150,7 +156,8 @@ public class Flow : MonoBehaviour
       //rig.isKinematic = true;       
       velocity = 0;
       anim.SetTrigger("dead");
-        OnDestroy();  
+      dropScript.Drop();
+      OnDestroy();  
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     }
@@ -172,4 +179,6 @@ public class Flow : MonoBehaviour
     {
         healthBarObject.SetActive(false);
     }
+
+    
 }
