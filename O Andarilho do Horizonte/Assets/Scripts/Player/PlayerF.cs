@@ -165,9 +165,11 @@ public class PlayerF : MonoBehaviour
 
     void Die()
     {
-        playerRb.velocity = Vector2.zero;
+        moveSpeed = 0;
+        
         playerAnim.SetTrigger("die");
-        Destroy(gameObject,1.7f);
+        Destroy(gameObject,1.5f);
+        
     }
 
     void Knockback()
@@ -217,6 +219,16 @@ public class PlayerF : MonoBehaviour
        
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Potion1")
+        {
+            health = health + 2;
+            UpdateHealthBar();
+
+        }
+
+    }
+
 
 }

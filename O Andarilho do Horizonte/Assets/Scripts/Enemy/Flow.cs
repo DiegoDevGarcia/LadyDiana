@@ -86,12 +86,14 @@ public class Flow : MonoBehaviour
 
             if (distance > 0.5 && distance < 3)
             {
+                anim.SetBool("idle", false);
                 anim.SetBool("walk", true);
                 transform.position = Vector2.MoveTowards(transform.position, playerTarget.position, velocity * Time.deltaTime);
             
             }else if(distance > 3)
             
             {
+                anim.SetBool("walk", false);
                 anim.SetBool("idle", true);
             }
 
@@ -153,7 +155,7 @@ public class Flow : MonoBehaviour
 
     public void EnemyDead()
     {
-      //rig.isKinematic = true;       
+           
       velocity = 0;
       anim.SetTrigger("dead");
       dropScript.Drop();

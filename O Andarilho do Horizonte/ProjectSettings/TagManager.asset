@@ -10,6 +10,7 @@ TagManager:
   - Relic
   - Spikes
   - Enemy
+  - Potion1
   layers:
   - Default
   - TransparentFX
