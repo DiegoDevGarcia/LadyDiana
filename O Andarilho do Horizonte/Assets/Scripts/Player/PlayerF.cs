@@ -45,6 +45,17 @@ public class PlayerF : MonoBehaviour
     public float attackRange; //distancia do ataque
     public float attackCooldown;
 
+    
+    [Header("Dash System")]
+
+    private float dashAtual; //Duração do Dash atual
+    private bool canDash; // variavel de controle para saber se já pode executar novo dash
+    private bool isDashing; //controle de animação
+    public float duracaoDash; //curação da utilização do dash
+    public float dashSpeed; // velocidade do dash
+    //public float dashColldown; // recarga do dash, tempo minimo para executar o dash novamente
+
+    [Header("Health System")]
     public Transform healthBar; //barra verde
     public GameObject healthBarObject; //objeto pai das barras
     private Vector3 healthBarScale; // tamanho da barra
@@ -56,6 +67,9 @@ public class PlayerF : MonoBehaviour
         playerAnim = gameObject.GetComponent<Animator>();
         healthBarScale = healthBar.localScale;
         healthPercent = healthBarScale.x / health;
+        canDash = true;
+        dashAtual = duracaoDash;
+
     }
 
     
@@ -81,7 +95,7 @@ public class PlayerF : MonoBehaviour
             }
         }
 
-
+        Dash();
     }
 
     void CheckInput()
@@ -117,6 +131,50 @@ public class PlayerF : MonoBehaviour
         Flip();
     }
 
+    void Dash()
+    {
+        if(Input.GetButtonDown("Fire3") && isGrounded && canDash)
+        {
+            if (dashAtual <= 0)
+            {
+                StopDash();
+            }
+            else
+            {
+               playerAnim.SetBool("isDashing" , true);
+
+                dashAtual -= Time.deltaTime;
+
+                //DashParticle(); criar um sistema de particulas para o dash
+
+                if (facingRight)
+                {
+                    playerRb.velocity = Vector2.right * dashSpeed;
+                }
+                else
+                {
+                    playerRb.velocity = Vector2.left * dashSpeed;
+                }
+            }
+
+        }
+
+        if(Input.GetButtonUp("Fire3"))
+        {
+            isDashing = false;
+            canDash = true;
+            dashAtual = duracaoDash;
+        }
+    }
+
+    private void StopDash()
+    {
+        playerRb.velocity = Vector2.zero;
+        dashAtual = duracaoDash;
+        isDashing = false;
+        canDash = false;
+    }
+
     private void Flip()
     {
         if((moveInput < 0 && facingRight)||(moveInput > 0 && !facingRight))
@@ -147,7 +205,7 @@ public class PlayerF : MonoBehaviour
     }
     public void TakeDamage (int damage)
     {
-        //vCam.GetComponent<CameraController>().CameraShake(); Rever o conceito para acertar
+        
 
         playerAnim.SetTrigger("hurt");
         Knockback();
@@ -156,7 +214,7 @@ public class PlayerF : MonoBehaviour
         UpdateHealthBar();
 
         recovering = true;
-
+        
         if (health <= 0)
         {
             Die();

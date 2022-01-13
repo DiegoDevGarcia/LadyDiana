@@ -6,15 +6,38 @@ using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
-    
-    public CinemachineVirtualCamera virtualCamera;
+   /* public GameObject shakeFX;
+    public float shakeDuration;
 
-    public void CameraShake()
+    //public CinemachineVirtualCamera virtualCamera;
+
+    public CinemachineImpulseSource impulse;
+
+
+    private void Start()
     {
-        StartCoroutine("Shake");
-    }
 
-    public IEnumerator Shake()
+        shakeFX.SetActive(false);
+    //    impulse = transform.GetComponent<CinemachineImpulseSource>();
+      //  Invoke("CameraShake", 3f);
+    }
+    /*public void CameraShake()
+    {
+
+        impulse.GenerateImpulse(10f);
+        //StartCoroutine("Shake");
+        
+
+    }*/
+
+   /* IEnumerator Shake(float t)
+    {
+        shakeFX.SetActive(true);
+        yield return new WaitForSeconds(t);
+        shakeFX.SetActive(false);
+    }*/
+
+   /* public IEnumerator Shake()
     {
         virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 3f;
         virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 3f;
@@ -28,5 +51,5 @@ public class CameraController : MonoBehaviour
         
 
 
-    }
+    }*/
 }
