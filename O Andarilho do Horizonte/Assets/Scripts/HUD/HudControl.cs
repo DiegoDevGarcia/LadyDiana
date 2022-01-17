@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HudControl : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class HudControl : MonoBehaviour
 
     public GameObject keyOnOff;
     public GameObject relicOnOff;
-   
+
+    
+       
 
     private void Awake()
     {
@@ -22,6 +25,7 @@ public class HudControl : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        
     }
 
 
@@ -36,5 +40,7 @@ public class HudControl : MonoBehaviour
         relicOnOff.SetActive(true);
 
     }
+
+   
    
 }

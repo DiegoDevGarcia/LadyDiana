@@ -49,18 +49,21 @@ public class PlayerF : MonoBehaviour
     [Header("Dash System")]
 
     private float dashAtual; //Duração do Dash atual
-    private bool canDash; // variavel de controle para saber se já pode executar novo dash
-    private bool isDashing; //controle de animação
+    private bool canDash = true; // variavel de controle para saber se já pode executar novo dash
+    //public static bool isDashing; //controle de animação
     public float duracaoDash; //curação da utilização do dash
     public float dashSpeed; // velocidade do dash
-    //public float dashColldown; // recarga do dash, tempo minimo para executar o dash novamente
+    public float dashColldown; // recarga do dash, tempo minimo para executar o dash novamente
 
     [Header("Health System")]
     public Transform healthBar; //barra verde
     public GameObject healthBarObject; //objeto pai das barras
     private Vector3 healthBarScale; // tamanho da barra
     private float healthPercent; // percentual de vida para calculo do tamanho da barra
+
+    //[Header("Energy System")]
     
+
     void Start()
     {
         playerRb = gameObject.GetComponent<Rigidbody2D>();
@@ -73,6 +76,10 @@ public class PlayerF : MonoBehaviour
     }
 
     
+    private void FixedUpdate()
+    {
+        Dash();
+    }
     void Update()
     {
         if (canMove)
@@ -95,7 +102,7 @@ public class PlayerF : MonoBehaviour
             }
         }
 
-        Dash();
+        
     }
 
     void CheckInput()
@@ -117,6 +124,7 @@ public class PlayerF : MonoBehaviour
     void SetAnimations()
     {
         playerAnim.SetBool("isGround", isGrounded);
+        //playerAnim.SetBool("isDashing", isDashing);
         playerAnim.SetFloat("speedY", playerRb.velocity.y);
     }
 
@@ -131,7 +139,7 @@ public class PlayerF : MonoBehaviour
         Flip();
     }
 
-    void Dash()
+    /*void Dash()
     {
         if(Input.GetButtonDown("Fire3") && isGrounded && canDash)
         {
@@ -141,7 +149,8 @@ public class PlayerF : MonoBehaviour
             }
             else
             {
-               playerAnim.SetBool("isDashing" , true);
+               // isDashing = true; 
+                playerAnim.SetTrigger("Dash");
 
                 dashAtual -= Time.deltaTime;
 
@@ -161,17 +170,54 @@ public class PlayerF : MonoBehaviour
 
         if(Input.GetButtonUp("Fire3"))
         {
-            isDashing = false;
+           // isDashing = false; //playerAnim.SetBool("isDashing", false);
             canDash = true;
             dashAtual = duracaoDash;
         }
     }
+    */
 
+    public void Dash()
+    {
+        if (canDash && isGrounded && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (dashAtual <= 0)
+            {
+                StopDash();
+                dashAtual += Time.deltaTime;
+                canDash = true;
+            }
+            else
+            {
+                // isDashing = true; 
+                playerAnim.SetTrigger("Dash");
+
+                dashAtual -= Time.deltaTime;
+
+                //DashParticle(); criar um sistema de particulas para o dash
+
+                if (facingRight)
+                {
+                    playerRb.velocity = Vector2.right * dashSpeed;
+                }
+                else
+                {
+                    playerRb.velocity = Vector2.left * dashSpeed;
+                }
+            }
+
+
+        }
+    }
+     
+        
+        
+        
     private void StopDash()
     {
         playerRb.velocity = Vector2.zero;
         dashAtual = duracaoDash;
-        isDashing = false;
+        //isDashing = false;  //playerAnim.SetBool("isDashing", false); 
         canDash = false;
     }
 
@@ -203,6 +249,8 @@ public class PlayerF : MonoBehaviour
         healthBarScale.x = healthPercent * health;
         healthBar.localScale = healthBarScale;
     }
+
+   
     public void TakeDamage (int damage)
     {
         
@@ -262,9 +310,11 @@ public class PlayerF : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-        
-                if (isGrounded)
+            
+
+            if (isGrounded)
                 {
+                
                 attacking = true;
 
                 playerAnim.SetTrigger("Attack");

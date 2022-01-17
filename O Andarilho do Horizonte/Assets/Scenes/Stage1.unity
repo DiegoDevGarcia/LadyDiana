@@ -32352,7 +32352,7 @@ GameObject:
   - component: {fileID: 1355496164}
   - component: {fileID: 1355496163}
   m_Layer: 5
-  m_Name: healthFull
+  m_Name: energyFull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32398,10 +32398,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 76d429724b06a0448a318fbda04f8ade, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -35591,7 +35591,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 79.600006, y: -88.399994}
+  m_AnchoredPosition: {x: 79.60004, y: -88.399994}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1919812977
@@ -73408,15 +73408,19 @@ PrefabInstance:
       objectReference: {fileID: 265235580}
     - target: {fileID: 227839934549795736, guid: dd8320c5a25930c4c971723a37134fd5, type: 3}
       propertyPath: dashSpeed
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 227839934549795736, guid: dd8320c5a25930c4c971723a37134fd5, type: 3}
+      propertyPath: energyBar
+      value: 
+      objectReference: {fileID: 1355496163}
     - target: {fileID: 227839934549795736, guid: dd8320c5a25930c4c971723a37134fd5, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 2124414267}
     - target: {fileID: 227839934549795736, guid: dd8320c5a25930c4c971723a37134fd5, type: 3}
       propertyPath: duracaoDash
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 227839934549795736, guid: dd8320c5a25930c4c971723a37134fd5, type: 3}
       propertyPath: healthBarObject
@@ -73668,7 +73672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7486481633878741046, guid: 69b41786c73ef8e47a675741688d36be, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7486481633878741049, guid: 69b41786c73ef8e47a675741688d36be, type: 3}
       propertyPath: playerTarget
